@@ -1,0 +1,40 @@
+﻿body {
+    color: #66fcf1;
+}
+
+hr {
+    color: #66fcf1;
+}
+
+.create-new {
+    padding-left: 5px;
+    padding-top: 25px;
+}
+
+table {
+    background-color: #1f2833;
+    border-radius: 5px;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    color: #66fcf1;
+}
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #7c9190;
+}
+
+
+tr {
+    color: #66fcf1;
+}
+
+.last-column {
+    text-align: right;
+}

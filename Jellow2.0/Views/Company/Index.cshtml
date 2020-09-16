@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Jellow2._0.Database.Company>
+
+@{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="~/Content/general-styling.css" />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p class="create-new">
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="index-table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Open Jobs
+            </th>
+            <th>
+                Open Projects
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasJobsPosted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HasProjectsPosted)
+        </td>
+        <td>
+            @Html.ActionLink("Post Job", "CompanyCreateJob", "Job", new { CompanyID = item.CompanyID }, null) |
+            @Html.ActionLink("Post Project", "CompanyCreateProject", "Project", new { CompanyID = item.CompanyID }, null) |
+            @Html.ActionLink("View Jobs", "JobDetails", new { CompanyID = item.CompanyID }) |
+            @Html.ActionLink("View Projects", "ProjectDetails", new { CompanyID = item.CompanyID }) |
+            @Html.ActionLink("Delete", "Delete", new { CompanyID = item.CompanyID })
+        </td>
+    </tr>
+        }
+    </table>
+</body>
+</html>

@@ -1,0 +1,75 @@
+﻿@model Jellow2._0.ViewModels.CompanyViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="~/Content/general-styling.css" />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Projects</title>
+</head>
+<body>
+    <div>
+        <table class="index-table">
+            <tr>
+                <th>
+                    Job
+                </th>
+                <th>
+                    Function
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Salary
+                <th>
+                    Available
+                </th>
+                <th>
+                    Start Date
+                </th>
+            </tr>
+            @foreach (var item in Model.allJobs)
+            {
+                <tr>
+                    <td>
+                        Job
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Salary
+                    </td>
+                    <td>
+                        @if (item.FreelancerID == null)
+                        {
+                            <label>Available</label>
+                        }
+                        else
+                        {
+                            <label>Not Available</label>
+                        }
+
+                    </td>
+                    <td>
+                        @item.StartDate
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        @Html.ActionLink("Back to Company", "Index", "Company")
+    </div>
+</body>
+</html>
+

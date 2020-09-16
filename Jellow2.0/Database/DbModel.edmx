@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DbModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DbModelStoreContainer">
+    <EntitySet Name="Companies" EntityType="DbModel.Store.Companies" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Consumers" EntityType="DbModel.Store.Consumers" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Jobs" EntityType="DbModel.Store.Jobs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Projects" EntityType="DbModel.Store.Projects" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Freelancers" EntityType="DbModel.Store.Freelancers" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="CompanyJob" Association="DbModel.Store.CompanyJob">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="ConsumerProject" Association="DbModel.Store.ConsumerProject">
+      <End Role="Consumer" EntitySet="Consumers" />
+      <End Role="Project" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="CompanyProject" Association="DbModel.Store.CompanyProject">
+      <End Role="Company" EntitySet="Companies" />
+      <End Role="Project" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FreelancerJob" Association="DbModel.Store.FreelancerJob">
+      <End Role="Freelancer" EntitySet="Freelancers" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FreelancerProject" Association="DbModel.Store.FreelancerProject">
+      <End Role="Freelancer" EntitySet="Freelancers" />
+      <End Role="Project" EntitySet="Projects" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Companies">
+    <Key>
+      <PropertyRef Name="CompanyID" />
+    </Key>
+    <Property Name="CompanyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HasProjectsPosted" Type="bit" Nullable="false" />
+    <Property Name="HasJobsPosted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Consumers">
+    <Key>
+      <PropertyRef Name="ConsumerID" />
+    </Key>
+    <Property Name="ConsumerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="HasProjectPosted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Jobs">
+    <Key>
+      <PropertyRef Name="JobID" />
+    </Key>
+    <Property Name="JobID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Experience" Type="float" Nullable="false" />
+    <Property Name="Salary" Type="decimal" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="CompanyID" Type="int" Nullable="false" />
+    <Property Name="FreelancerID" Type="int" Nullable="true" />
+    <Property Name="SkillRequirement" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="ProjectID" />
+    </Key>
+    <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Experience" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Budget" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DueDate" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ConsumerID" Type="int" Nullable="true" />
+    <Property Name="CompanyID" Type="int" Nullable="true" />
+    <Property Name="FreelancerID" Type="int" Nullable="true" />
+    <Property Name="SkillRequirement" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Freelancers">
+    <Key>
+      <PropertyRef Name="FreelancerID" />
+    </Key>
+    <Property Name="FreelancerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsEmployed" Type="bit" Nullable="false" />
+    <Property Name="Experience" Type="float" Nullable="false" />
+    <Property Name="Skill" Type="smallint" Nullable="false" />
+  </EntityType>
+  <Association Name="CompanyJob">
+    <End Role="Company" Type="DbModel.Store.Companies" Multiplicity="1" />
+    <End Role="Job" Type="DbModel.Store.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyID" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ConsumerProject">
+    <End Role="Consumer" Type="DbModel.Store.Consumers" Multiplicity="0..1" />
+    <End Role="Project" Type="DbModel.Store.Projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Consumer">
+        <PropertyRef Name="ConsumerID" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="ConsumerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="CompanyProject">
+    <End Role="Company" Type="DbModel.Store.Companies" Multiplicity="0..1" />
+    <End Role="Project" Type="DbModel.Store.Projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Company">
+        <PropertyRef Name="CompanyID" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="CompanyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FreelancerJob">
+    <End Role="Freelancer" Type="DbModel.Store.Freelancers" Multiplicity="0..1" />
+    <End Role="Job" Type="DbModel.Store.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Freelancer">
+        <PropertyRef Name="FreelancerID" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="FreelancerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FreelancerProject">
+    <End Role="Freelancer" Type="DbModel.Store.Freelancers" Multiplicity="0..1" />
+    <End Role="Project" Type="DbModel.Store.Projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Freelancer">
+        <PropertyRef Name="FreelancerID" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="FreelancerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DbModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Companies" EntityType="DbModel.Company" />
+          <EntitySet Name="Consumers" EntityType="DbModel.Consumer" />
+          <EntitySet Name="Jobs" EntityType="DbModel.Job" />
+          <AssociationSet Name="CompanyJob" Association="DbModel.CompanyJob">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <EntitySet Name="Projects" EntityType="DbModel.Project" />
+          <AssociationSet Name="ConsumerProject" Association="DbModel.ConsumerProject">
+            <End Role="Consumer" EntitySet="Consumers" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="CompanyProject" Association="DbModel.CompanyProject">
+            <End Role="Company" EntitySet="Companies" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <EntitySet Name="Freelancers" EntityType="DbModel.Freelancer" />
+          <AssociationSet Name="FreelancerJob" Association="DbModel.FreelancerJob">
+            <End Role="Freelancer" EntitySet="Freelancers" />
+            <End Role="Job" EntitySet="Jobs" />
+          </AssociationSet>
+          <AssociationSet Name="FreelancerProject" Association="DbModel.FreelancerProject">
+            <End Role="Freelancer" EntitySet="Freelancers" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="CompanyID" />
+          </Key>
+          <Property Name="CompanyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="HasProjectsPosted" Type="Boolean" Nullable="false" />
+          <Property Name="HasJobsPosted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="JobList" Relationship="DbModel.CompanyJob" FromRole="Company" ToRole="Job" />
+          <NavigationProperty Name="ProjectList" Relationship="DbModel.CompanyProject" FromRole="Company" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Consumer">
+          <Key>
+            <PropertyRef Name="ConsumerID" />
+          </Key>
+          <Property Name="ConsumerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="HasProjectPosted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ProjectList" Relationship="DbModel.ConsumerProject" FromRole="Consumer" ToRole="Project" />
+        </EntityType>
+        <EntityType Name="Job">
+          <Key>
+            <PropertyRef Name="JobID" />
+          </Key>
+          <Property Name="JobID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Experience" Type="Double" Nullable="false" />
+          <Property Name="Salary" Type="Decimal" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="DbModel.CompanyJob" FromRole="Job" ToRole="Company" />
+          <Property Name="CompanyID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Freelancer" Relationship="DbModel.FreelancerJob" FromRole="Job" ToRole="Freelancer" />
+          <Property Name="FreelancerID" Type="Int32" Nullable="true" />
+          <Property Name="SkillRequirement" Type="DbModel.Skill" Nullable="false" />
+        </EntityType>
+        <Association Name="CompanyJob">
+          <End Type="DbModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="DbModel.Job" Role="Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" />
+          <Property Name="Experience" Type="String" Nullable="false" />
+          <Property Name="Budget" Type="String" Nullable="false" />
+          <Property Name="DueDate" Type="String" Nullable="false" />
+          <NavigationProperty Name="Consumer" Relationship="DbModel.ConsumerProject" FromRole="Project" ToRole="Consumer" />
+          <Property Name="ConsumerID" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Company" Relationship="DbModel.CompanyProject" FromRole="Project" ToRole="Company" />
+          <Property Name="CompanyID" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Freelancer" Relationship="DbModel.FreelancerProject" FromRole="Project" ToRole="Freelancer" />
+          <Property Name="FreelancerID" Type="Int32" Nullable="true" />
+          <Property Name="SkillRequirement" Type="DbModel.Skill" Nullable="false" />
+        </EntityType>
+        <Association Name="ConsumerProject">
+          <End Type="DbModel.Consumer" Role="Consumer" Multiplicity="0..1" />
+          <End Type="DbModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Consumer">
+              <PropertyRef Name="ConsumerID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="ConsumerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="CompanyProject">
+          <End Type="DbModel.Company" Role="Company" Multiplicity="0..1" />
+          <End Type="DbModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="CompanyID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="CompanyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Freelancer">
+          <Key>
+            <PropertyRef Name="FreelancerID" />
+          </Key>
+          <Property Name="FreelancerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="IsEmployed" Type="Boolean" Nullable="false" />
+          <Property Name="Experience" Type="Double" Nullable="false" />
+          <NavigationProperty Name="JobsList" Relationship="DbModel.FreelancerJob" FromRole="Freelancer" ToRole="Job" />
+          <NavigationProperty Name="ProjectsList" Relationship="DbModel.FreelancerProject" FromRole="Freelancer" ToRole="Project" />
+          <Property Name="Skill" Type="DbModel.Skill" Nullable="false" />
+        </EntityType>
+        <Association Name="FreelancerJob">
+          <End Type="DbModel.Freelancer" Role="Freelancer" Multiplicity="0..1" />
+          <End Type="DbModel.Job" Role="Job" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Freelancer">
+              <PropertyRef Name="FreelancerID" />
+            </Principal>
+            <Dependent Role="Job">
+              <PropertyRef Name="FreelancerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FreelancerProject">
+          <End Type="DbModel.Freelancer" Role="Freelancer" Multiplicity="0..1" />
+          <End Type="DbModel.Project" Role="Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Freelancer">
+              <PropertyRef Name="FreelancerID" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="FreelancerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EnumType Name="Skill" UnderlyingType="Int16">
+          <Member Name="Java" Value="1" />
+          <Member Name="DevOps" Value="2" />
+          <Member Name="CSharp" Value="3" />
+          <Member Name="FrontEnd" Value="4" />
+          <Member Name="SQL" Value="5" />
+          <Member Name="FullStack" Value="6" />
+        </EnumType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="DbModelContainer">
+    <EntitySetMapping Name="Companies">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Company)">
+        <MappingFragment StoreEntitySet="Companies">
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="HasProjectsPosted" ColumnName="HasProjectsPosted" />
+          <ScalarProperty Name="HasJobsPosted" ColumnName="HasJobsPosted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Consumers">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Consumer)">
+        <MappingFragment StoreEntitySet="Consumers">
+          <ScalarProperty Name="ConsumerID" ColumnName="ConsumerID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="HasProjectPosted" ColumnName="HasProjectPosted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Jobs">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Job)">
+        <MappingFragment StoreEntitySet="Jobs">
+          <ScalarProperty Name="JobID" ColumnName="JobID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Experience" ColumnName="Experience" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="FreelancerID" ColumnName="FreelancerID" />
+          <ScalarProperty Name="SkillRequirement" ColumnName="SkillRequirement" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Project)">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Experience" ColumnName="Experience" />
+          <ScalarProperty Name="Budget" ColumnName="Budget" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="ConsumerID" ColumnName="ConsumerID" />
+          <ScalarProperty Name="CompanyID" ColumnName="CompanyID" />
+          <ScalarProperty Name="FreelancerID" ColumnName="FreelancerID" />
+          <ScalarProperty Name="SkillRequirement" ColumnName="SkillRequirement" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Freelancers">
+      <EntityTypeMapping TypeName="IsTypeOf(DbModel.Freelancer)">
+        <MappingFragment StoreEntitySet="Freelancers">
+          <ScalarProperty Name="FreelancerID" ColumnName="FreelancerID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IsEmployed" ColumnName="IsEmployed" />
+          <ScalarProperty Name="Experience" ColumnName="Experience" />
+          <ScalarProperty Name="Skill" ColumnName="Skill" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

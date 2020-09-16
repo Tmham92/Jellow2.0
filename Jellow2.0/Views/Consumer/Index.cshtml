@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Jellow2._0.Database.Consumer>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="~/Content/general-styling.css" />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p class="create-new">
+        @Html.ActionLink("Create New", "Create", null, null, new { @style = "color:#45a29e" } )
+    </p>
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Open Projects
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasProjectPosted)
+                </td>
+                <td class="last-column">
+                    @Html.ActionLink("Post Project", "ConsumerCreateProject", "Project", new { ConsumerID = item.ConsumerID, @Style= "color:#66fcf1;"}, null) |
+                    @Html.ActionLink("View Projects", "ProjectDetails", "Consumer", new { ConsumerID = item.ConsumerID }, null) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ConsumerID })
+                </td>
+            </tr>
+        }
+
+    </table>
+</body>
+</html>

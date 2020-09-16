@@ -1,0 +1,75 @@
+﻿@model Jellow2._0.ViewModels.ConsumerViewModel
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="~/Content/general-styling.css" />
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Projects</title>
+</head>
+<body>
+    <div>
+        <table class="index-table">
+            <tr>
+                <th>
+                    Project
+                </th>
+                <th>
+                    Function
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Budget
+                </th>
+                <th>
+                    Available
+                </th>
+                <th>
+                    Due Date
+                </th>
+            </tr>
+            @foreach (var item in Model.allProjects)
+            {
+                <tr>
+                    <td>
+                        @item.ProjectID
+                    </td>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>
+                        @item.Budget
+                    </td>
+                    <td>
+                        @if (item.FreelancerID == null)
+                        {
+                            <label>Available</label>
+                        }
+                        else
+                        {
+                            <label>Not Available</label>
+                        }
+                    </td>
+                    <td>
+                        @item.DueDate
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div>
+        @Html.ActionLink("Back to Consumer", "Index", "Consumer")
+    </div>
+</body>
+</html>
+

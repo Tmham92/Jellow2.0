@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<link rel="stylesheet" type="text/css" href="~/Content/home-page.css"/>
+
+
+<div class="dislay-container">
+    <div class="col-md-5 left-side flex" id="left-column">
+        <h3>
+            Are you looking for some of the best programmers this world has to offer?
+        </h3>
+        <div class="bordered bottom-anchored">
+            <h4>
+                I am looking for a Programmer.
+            </h4>
+            @Html.ActionLink("Search Programmers", "Index", "Freelancer", null, new { @class = "bordered-outset", @style = "color: #66fcf1" })
+        </div>
+    </div>
+    <div class="col-sm-2 centered"></div>
+    <div class="col-md-5 right-side flex" id="right-column">
+        <h3>Or are you looking for new challenges and opportunities to increase your programming and design skills?</h3>
+
+        <div class="bordered">
+            <h4>
+                I need a new Challenge!
+            </h4>
+            @Html.ActionLink("View Jobs and Projects", "Overview", "Overview", null, new { @class = "bordered-outset", @style = "color: #66fcf1" })
+        </div>
+    </div>
+    <div class="col-md-5 right-side flex">
+        New Company?
+        @Html.ActionLink("Create Company Account", "Create", "Company", null, new { @class = "bordered-outset", @style = "color: #66fcf1" })
+    </div>
+    <div class="col-sm-2 centered"></div>
+    <div class="col-md-5 left-side flex">
+        New Private Individual?
+        @Html.ActionLink("Create Private Account", "Create", "Consumer", null, new { @class = "bordered-outset", @style = "color: #66fcf1" })
+
+    </div>
+</div>
+
