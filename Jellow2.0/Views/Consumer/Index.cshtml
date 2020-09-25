@@ -15,13 +15,16 @@
     <p class="create-new">
         @Html.ActionLink("Create New", "Create", null, new { @class = "basic-hyperlink" })
     </p>
-    <table>
+    <table class="index-table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IDSortParam }, new { @class = "basic-hyperlink" })
             </th>
             <th>
-                Open Projects
+                @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameParam }, new { @class = "basic-hyperlink" })
+            </th>
+            <th>
+                @Html.ActionLink("Open Projects", "Index", new { sortOrder = ViewBag.ProjectPostedParam }, new { @class = "basic-hyperlink" })
             </th>
             <th></th>
         </tr>
@@ -29,6 +32,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ConsumerID)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>

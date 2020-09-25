@@ -175,6 +175,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\CompanyViewModel.cs" />
     <Compile Include="ViewModels\ConsumerViewModel.cs" />
+    <Compile Include="ViewModels\JobAndFreelancerViewModel.cs" />
     <Compile Include="ViewModels\JobAndProjectViewModel.cs" />
     <Compile Include="ViewModels\ProjectAndFreelancerViewModel.cs" />
   </ItemGroup>
@@ -264,6 +265,7 @@
     <Content Include="Views\Freelancer\Index.cshtml" />
     <Content Include="Views\Overview\Overview.cshtml" />
     <Content Include="Views\Overview\AcceptProject.cshtml" />
+    <Content Include="Views\Overview\AcceptJob.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

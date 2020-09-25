@@ -17,14 +17,34 @@ namespace Jellow2._0.Controllers
         private DbModelContainer db = new DbModelContainer();
 
         // GET: Consumer
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
+            ViewBag.IDSortParam = String.IsNullOrEmpty(sortOrder) ? "consumerID_asc" : "";
+            ViewBag.ProjectPostedParam = sortOrder == "Projectposted";
+            ViewBag.NameParam = sortOrder == "NameOrder" ? "Name_Desc" : "NameOrder";
+
+            var consumers = from c in db.Consumers select c;
+            switch (sortOrder)
+            {
+                case "consumerID_asc":
+                    consumers = consumers.OrderBy(c => c.ConsumerID);
+                    break;
+                case "NameOrder":
+                    consumers = consumers.OrderBy(c => c.Name);
+                    break;
+                case "Name_Desc":
+                    consumers = consumers.OrderByDescending(c => c.Name);
+                    break;
+                default:
+                    consumers = consumers.OrderBy(c => c.ConsumerID);
+                    break;
+            }
             CheckIfConsumerHasProjects();
             return View(db.Consumers.ToList());
         }
 
-        // GET: Consumer/Details/5
-        public ActionResult Details(int? id)
+// GET: Consumer/Details/5
+public ActionResult Details(int? id)
         {
             if (id == null)
             {

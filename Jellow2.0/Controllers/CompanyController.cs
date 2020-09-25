@@ -25,6 +25,11 @@ namespace Jellow2._0.Controllers
             ViewBag.NameParam = sortOrder == "NameOrder" ? "Name_Desc" : "NameOrder";
 
             var companies = from c in db.Companies select c;
+
+            if (!String.IsNullOrEmpty(searching))
+            {
+                companies = companies.Where(c => c.Name.Contains(searching));
+            }
             switch (sortOrder)
             {
                 case "Jobposted":
@@ -46,6 +51,7 @@ namespace Jellow2._0.Controllers
                     companies = companies.OrderBy(c => c.CompanyID);
                     break;
             }
+
             CheckIfCompanyHasJobsOrProjects();
             return View(companies.ToList());
             //return View(db.Companies.ToList());

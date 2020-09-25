@@ -28,12 +28,6 @@ namespace Jellow2._0.Controllers
             return View(JobAndProjectVM);
         }
 
-        public ActionResult AcceptJob(int? JobID)
-        {
-            
-            return View();
-        }
-
         public ActionResult AcceptProject(int? ProjectID)
         {
             ProjectAndFreelancerViewModel projectAndFreelancerVM = new ProjectAndFreelancerViewModel();
@@ -49,7 +43,7 @@ namespace Jellow2._0.Controllers
         }
 
         [HttpPost]
-        public ActionResult AcceptProject([Bind(Include = "ProjectID,Name,Description,Experience,Budget,DueDate,ConsumerConsumerID,CompanyCompanyID,SkillRequirement,FreelancerID")] Project project)
+        public ActionResult AcceptProject([Bind(Include = "ProjectID,Name,Description,Experience,DueDate,ConsumerID,CompanyID,FreelancerID, SkillRequirement")] Project project)
         {
 
             if (ModelState.IsValid)
@@ -68,9 +62,32 @@ namespace Jellow2._0.Controllers
             return Redirect("Overview");
 
         }
+
+        public ActionResult AcceptJob(int? JobID)
+        {
+            JobAndFreelancerViewModel jobAndFreelancerViewModel = new JobAndFreelancerViewModel();
+            jobAndFreelancerViewModel.job = db.Jobs.Find(JobID);
+            jobAndFreelancerViewModel.Freelancers = db.Freelancers.ToList();
+            return View(jobAndFreelancerViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AcceptJob([Bind(Include = "JobID, Name, Description, Experience, Salary, StartDate, CompanyID, SkillRequirement, FreelancerID")] Job job)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(job).State = EntityState.Modified;
+
+                Freelancer freelancer = db.Freelancers.Find(job.FreelancerID);
+                freelancer.JobsList.Add(job);
+                int companyid = job.CompanyID;
+                db.Freelancers.AddOrUpdate(freelancer);
+                db.Jobs.AddOrUpdate(job);
+
+                db.SaveChanges();
+                return RedirectToAction("Overview", "Overview");
+            }
+            return Redirect("Overview");
+        }
     }
-
-
-
-    //, int? FreelancerID
 }

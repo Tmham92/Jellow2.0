@@ -1,0 +1,164 @@
+﻿@model Jellow2._0.ViewModels.JobAndFreelancerViewModel
+
+@{
+    ViewBag.Title = "Accept Job";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/Content/general-styling.css" />
+<link rel="stylesheet" type="text/css" href="~/Content/home-page.css" />
+<html>
+<body>
+    <h2>Accept Job</h2>
+
+    <div>
+        <h4>Job</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(Model => Model.job.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.job.Name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.job.Description)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.job.Description)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.job.Experience)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.job.Experience)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.job.Salary)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.job.Salary)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.job.StartDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.job.StartDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.job.SkillRequirement)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.job.SkillRequirement)
+            </dd>
+            <dt>
+                Company @Html.DisplayNameFor(model => model.job.Company.Name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.job.Company.Name)
+            </dd>
+            }
+        </dl>
+    </div>
+    <hr />
+
+    <div>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                <h5>Please select your unique ID to accept this Job</h5>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.job.JobID)
+
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.job.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.job.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job.Description, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.job.Experience, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job.Experience, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job.Experience, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.job.Salary, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job.Salary, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job.Salary, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.job.StartDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job.StartDate, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job.StartDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.job.SkillRequirement, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EnumDropDownListFor(model => model.job.SkillRequirement, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.job.SkillRequirement, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group" hidden>
+                    @Html.LabelFor(model => model.job.CompanyID, htmlAttributes: new { @class= "control-label col-md-2"})
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.job.CompanyID, new { htmlAttributes = new { @class="form-control" } })
+                        @Html.ValidationMessageFor(model => model.job.CompanyID, "", new { @class="text-danger"})
+                    </div>
+                </div>
+
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.job.FreelancerID, "FreelancerID", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.job.FreelancerID, Model.FreelancerIDs, "--Select--", new { @style = "background-color: #1f2833;" })
+                            @Html.ValidationMessageFor(model => model.job.FreelancerID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Save" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            }
+            <div>
+                <p>
+                    @Html.ActionLink("Back to List", "Overview", null, new { @class = "basic-hyperlink" })
+                </p>
+            </div>
+        </div>
+    </body>
+</html>
