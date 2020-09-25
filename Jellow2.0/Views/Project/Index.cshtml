@@ -15,7 +15,7 @@
 </head>
 <body>
     <p class="create-new"> 
-        @Html.ActionLink("Create New", "Create")
+        @Html.ActionLink("Create New", "Create", null, new { @class = "basic-hyperlink" })
     </p>
     <table class="index-table">
         <tr>
@@ -80,9 +80,9 @@
                     @Html.DisplayFor(modelItem => item.Freelancer.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }, new { @class = "basic-hyperlink" }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.ProjectID }, new { @class = "basic-hyperlink" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID }, new { @class = "basic-hyperlink" })
                 </td>
             </tr>
         }

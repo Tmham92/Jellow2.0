@@ -35,8 +35,8 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.ConsumerID }) |
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ConsumerID }, null, new { @class = "basic-hyperlink" }) |
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "basic-hyperlink" })
     </p>
 </body>
 </html>

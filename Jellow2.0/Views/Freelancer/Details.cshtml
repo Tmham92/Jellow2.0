@@ -4,6 +4,7 @@
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" type="text/css" href="~/Content/general-styling.css" />
 
 <h2>Details</h2>
 
@@ -20,7 +21,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IsEmployed)
+            Employed
         </dt>
 
         <dd>
@@ -34,10 +35,19 @@
         <dd>
             @Html.DisplayFor(model => model.Experience)
         </dd>
-
+        <dt>
+            Project List
+        </dt>
+        @foreach (var item in Model.ProjectsList)
+        {
+            <dd>
+                
+                @item.ProjectID
+            </dd>
+        }
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.FreelancerID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FreelancerID }, new { @class = "basic-hyperlink" }) |
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "basic-hyperlink" })
 </p>

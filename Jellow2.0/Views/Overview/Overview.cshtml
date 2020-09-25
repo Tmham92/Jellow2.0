@@ -38,40 +38,47 @@
             </tr>
             @foreach (var item in Model.allJobs)
             {
-                <tr>
-                    <td>
-                        @item.JobID
-                    </td>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        @item.Salary
-                    </td>
-                    <td>
-                        @if (item.FreelancerID == null)
-                        {
-                            <label>Available</label>
-                        }
-                        else
-                        {
-                            <label>Not Available</label>
-                        }
+        <tr>
+            <td>
+                @item.JobID
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.Salary
+            </td>
+            <td>
+                @if (item.FreelancerID == null)
+                {
+                    <label>Available</label>
+                }
+                else
+                {
+                    <label>Not Available</label>
+                }
 
-                    </td>
-                    <td>
-                        @item.StartDate
-                    </td>
-                    @if (item.FreelancerID == null)
-                    {
-                        <td class="bordered-outset">
-                            @Html.ActionLink("Accept", "AcceptJob", "Overview", new { JobID = item.JobID }, null)
-                        </td>
-                    }
-                </tr>
+            </td>
+            <td>
+                @item.StartDate
+            </td>
+            @if (item.FreelancerID == null)
+            {
+                <td>
+                    @Html.ActionLink("Accept", "AcceptJob", "Overview", new { JobID = item.JobID }, new { @class = "bordered-outset" })
+                </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink("Accept", "AcceptJob", "Overview", new { JobID = item.JobID }, new { @class = "bordered-inset" })
+                </td>
+            }
+
+        </tr>
             }
         </table>
     </div>
@@ -101,36 +108,48 @@
             </tr>
             @foreach (var item in Model.allProjects)
             {
-                <tr>
+        <tr>
+            <td>
+                @item.ProjectID
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.Budget
+            </td>
+            <td>
+                @if (item.FreelancerID == null)
+                {
+                    <label>Available</label>
+                }
+                else
+                {
+                    <label>Not Available</label>
+                }
+            </td>
+            <td>
+                @item.DueDate
+            </td>
+            @{
+                if (item.FreelancerID == null)
+                {
                     <td>
-                        @item.ProjectID
+                        @Html.ActionLink("Accept", "AcceptProject", "Overview", new { ProjectID = item.ProjectID }, new { @class = "bordered-outset" })
                     </td>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        @item.Budget
-                    </td>
-                    <td>
-                        @if (item.FreelancerID == null)
-                        {
-                            <label>Available</label>
-                        }
-                        else
-                        {
-                            <label>Not Available</label>
-                        }
-                    </td>
-                    <td>
-                        @item.DueDate
-                    </td>
-                    <td>
-                        @Html.ActionLink("Accept", "AcceptProject", "Overview", new { ProjectID = item.ProjectID }, null)
-                    </td>
-                </tr>
+                }
+                else
+                {
+                <td>
+                    @Html.ActionLink("Accept", "AcceptProject", "Overview", new { ProjectID = item.ProjectID }, new { @class = "bordered-inset" })
+                </td>
+                }
+            }
+
+        </tr>
             }
         </table>
     </div>

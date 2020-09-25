@@ -12,50 +12,67 @@
     <title>Index</title>
 </head>
 <body>
-    <p class="create-new">
-        @Html.ActionLink("Create New", "Create")
+    <p class="create-new" style="color: black">
+        @Html.ActionLink("Create New", "Create", null, new { @class = "basic-hyperlink" })
     </p>
-    <table class="index-table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CompanyID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                Open Jobs
-            </th>
-            <th>
-                Open Projects
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
+    @using (Html.BeginForm("Index", "Company", FormMethod.Get))
+    {
+        @Html.TextBox("searching", null, new { @style = "background-color:#1f2833;" })<input type="submit" value="Search" style="background-color:#1f2833"; />
+    }
+<table class="index-table">
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompanyID)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HasJobsPosted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HasProjectsPosted)
-        </td>
-        <td>
-            @Html.ActionLink("Post Job", "CompanyCreateJob", "Job", new { CompanyID = item.CompanyID }, null) |
-            @Html.ActionLink("Post Project", "CompanyCreateProject", "Project", new { CompanyID = item.CompanyID }, null) |
-            @Html.ActionLink("View Jobs", "JobDetails", new { CompanyID = item.CompanyID }) |
-            @Html.ActionLink("View Projects", "ProjectDetails", new { CompanyID = item.CompanyID }) |
-            @Html.ActionLink("Delete", "Delete", new { CompanyID = item.CompanyID })
-        </td>
+        <th>
+            @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.IDSortParam }, new { @class = "basic-hyperlink" })
+
+        </th>
+        <th>
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameParam }, new { @class = "basic-hyperlink" })
+        </th>
+        <th>
+            @Html.ActionLink("Open Jobs", "Index", new { sortOrder = ViewBag.JobPostedParam }, new { @class = "basic-hyperlink" })
+        </th>
+        <th>
+            @Html.ActionLink("Open Projects", "Index", new { sortOrder = ViewBag.ProjectPostedParam }, new { @class = "basic-hyperlink" })
+        </th>
+        <th></th>
     </tr>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td>
+                No Match Found
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <tr>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasJobsPosted)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HasProjectsPosted)
+                </td>
+                <td>
+                    @Html.ActionLink("Post Job", "CompanyCreateJob", "Job", new { CompanyID = item.CompanyID }, new { @class = "basic-hyperlink" }) |
+                    @Html.ActionLink("Post Project", "CompanyCreateProject", "Project", new { CompanyID = item.CompanyID }, new { @class = "basic-hyperlink" }) |
+                    @Html.ActionLink("View Jobs", "JobDetails", new { CompanyID = item.CompanyID }, new { @class = "basic-hyperlink" }) |
+                    @Html.ActionLink("View Projects", "ProjectDetails", new { CompanyID = item.CompanyID}, new { @class = "basic-hyperlink" }) |
+                    @Html.ActionLink("Delete", "Delete", new { CompanyID = item.CompanyID }, new { @class = "basic-hyperlink" })
+                </td>
+            </tr>
         }
-    </table>
+    }
+
+</table>
 </body>
 </html>

@@ -30,6 +30,8 @@ namespace Jellow2._0.Controllers
         {
             if (ModelState.IsValid)
             {
+                job.Experience = (float)job.Experience;
+
                 //No Freelancer has the job yet
                 job.FreelancerID = null;
                 db.Jobs.Add(job);
@@ -39,8 +41,6 @@ namespace Jellow2._0.Controllers
                 company.HasJobsPosted = true;
                 company.JobList.Add(job);
                 db.Companies.AddOrUpdate(company);
-
-
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

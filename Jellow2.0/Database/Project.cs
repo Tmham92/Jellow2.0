@@ -17,8 +17,8 @@ namespace Jellow2._0.Database
         public int ProjectID { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Experience { get; set; }
-        public string Budget { get; set; }
+        public double Experience { get; set; }
+        public decimal Budget { get; set; }
         public string DueDate { get; set; }
         public Nullable<int> ConsumerID { get; set; }
         public Nullable<int> CompanyID { get; set; }

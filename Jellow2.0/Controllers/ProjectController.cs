@@ -148,7 +148,7 @@ namespace Jellow2._0.Controllers
         {
             if (ModelState.IsValid)
             {
-
+                project.Experience = (float)project.Experience;
                 //No Freelancer has the job yet
                 project.FreelancerID = null;
                 project.ConsumerID = null;
@@ -179,6 +179,8 @@ namespace Jellow2._0.Controllers
         {
             if (ModelState.IsValid)
             {
+                project.Experience = (float)project.Experience;
+
                 project.FreelancerID = null;
                 project.CompanyID = null;
                 db.Projects.Add(project);

@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 09/15/2020 10:08:01
+-- Date Created: 09/24/2020 12:12:37
 -- Generated from EDMX file: C:\Users\Gebruiker\source\repos\Jellow2.0\Jellow2.0\Database\DbModel.edmx
 -- --------------------------------------------------
 
@@ -93,8 +93,8 @@ CREATE TABLE [dbo].[Projects] (
     [ProjectID] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Description] nvarchar(max)  NOT NULL,
-    [Experience] nvarchar(max)  NOT NULL,
-    [Budget] nvarchar(max)  NOT NULL,
+    [Experience] float  NOT NULL,
+    [Budget] decimal(18,0)  NOT NULL,
     [DueDate] nvarchar(max)  NOT NULL,
     [ConsumerID] int  NULL,
     [CompanyID] int  NULL,
@@ -225,6 +225,26 @@ CREATE INDEX [IX_FK_FreelancerProject]
 ON [dbo].[Projects]
     ([FreelancerID]);
 GO
+
+
+
+INSERT INTO Freelancers VALUES ('Tobias Ham', 'false', '1', '4');
+INSERT INTO Freelancers VALUES ('Henk Jansen', 'false', '5', '1');
+INSERT INTO Freelancers VALUES ('Marieke Naarde', 'false', '3.5', '5');
+INSERT INTO Freelancers VALUES ('Angela', 'false', '3', '6');
+INSERT INTO Freelancers VALUES ('Johnny Bravo', 'false', '4.5', '2');
+
+INSERT INTO Companies VALUES ('Facebook', 'false', 'false');
+INSERT INTO Companies VALUES ('Google', 'false', 'false');
+INSERT INTO Companies VALUES ('Apple', 'false', 'false');
+INSERT INTO Companies VALUES ('Bol.com', 'false', 'false');
+INSERT INTO Companies VALUES ('WindowCleaners.Inc', 'false', 'false');
+INSERT INTO Companies VALUES ('Pizzaria Mama Mia', 'false', 'false');
+
+INSERT INTO Consumers VALUES ('Tobias Ham', 'false');
+INSERT INTO Consumers VALUES ('Carla Hoogwater', 'false');
+INSERT INTO Consumers VALUES ('Reda Haroun', 'false');
+INSERT INTO Consumers VALUES ('Quinten Kolver', 'false');
 
 -- --------------------------------------------------
 -- Script has ended

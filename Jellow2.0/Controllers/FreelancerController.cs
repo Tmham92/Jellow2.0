@@ -17,6 +17,7 @@ namespace Jellow2._0.Controllers
         // GET: Freelancer
         public ActionResult Index()
         {
+            CheckIfCompanyHasJobsOrProjects();
             return View(db.Freelancers.ToList());
         }
 
@@ -50,6 +51,7 @@ namespace Jellow2._0.Controllers
         {
             if (ModelState.IsValid)
             {
+                freelancer.Experience = (float)freelancer.Experience;
                 db.Freelancers.Add(freelancer);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -122,6 +124,24 @@ namespace Jellow2._0.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+
+        public void CheckIfCompanyHasJobsOrProjects()
+        {
+            var freelancers = db.Freelancers.ToList();
+            foreach (var freelancer in freelancers)
+            {
+                if (freelancer.ProjectsList.Count == 0 && freelancer.JobsList.Count == 0)
+                {
+                    freelancer.IsEmployed = false;
+                }
+                else
+                {
+                    freelancer.IsEmployed = true;
+                }
+            }
+            db.SaveChanges();
         }
     }
 }

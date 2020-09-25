@@ -70,8 +70,8 @@
     <Property Name="ProjectID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Experience" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Budget" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Experience" Type="float" Nullable="false" />
+    <Property Name="Budget" Type="decimal" Nullable="false" />
     <Property Name="DueDate" Type="nvarchar(max)" Nullable="false" />
     <Property Name="ConsumerID" Type="int" Nullable="true" />
     <Property Name="CompanyID" Type="int" Nullable="true" />
@@ -234,8 +234,8 @@
           <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="false" />
-          <Property Name="Experience" Type="String" Nullable="false" />
-          <Property Name="Budget" Type="String" Nullable="false" />
+          <Property Name="Experience" Type="Double" Nullable="false" />
+          <Property Name="Budget" Type="Decimal" Nullable="false" />
           <Property Name="DueDate" Type="String" Nullable="false" />
           <NavigationProperty Name="Consumer" Relationship="DbModel.ConsumerProject" FromRole="Project" ToRole="Consumer" />
           <Property Name="ConsumerID" Type="Int32" Nullable="true" />

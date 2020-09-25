@@ -4,3 +4,17 @@
 .accept-button {
 
 }
+
+.bordered-outset {
+    padding: 4px 6px 4px 6px;
+    border: outset;
+    color: #66fcf1;
+}
+
+.bordered-inset {
+    padding: 4px 6px 4px 6px;
+    border: inset;
+    color: #66fcf1;
+    pointer-events: none;
+    cursor: default;
+}

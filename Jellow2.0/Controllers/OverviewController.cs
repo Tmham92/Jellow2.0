@@ -3,6 +3,7 @@ using Jellow2._0.Database;
 using Jellow2._0.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web;
@@ -47,20 +48,23 @@ namespace Jellow2._0.Controllers
             return View(projectAndFreelancerVM);
         }
 
-        public ActionResult ProjectAccepted(int? ProjectID, int? FreelancerID)
+        [HttpPost]
+        public ActionResult AcceptProject([Bind(Include = "ProjectID,Name,Description,Experience,Budget,DueDate,ConsumerConsumerID,CompanyCompanyID,SkillRequirement,FreelancerID")] Project project)
         {
-            _projectID = ProjectID;
 
-            Project project = db.Projects.Find(ProjectID);
-            project.FreelancerID = 2;
+            if (ModelState.IsValid)
+            {
+                db.Entry(project).State = EntityState.Modified;
 
-            Freelancer freelancer = db.Freelancers.Find(project.FreelancerID);
-            freelancer.ProjectsList.Add(project);
-            db.Projects.AddOrUpdate(project);
-            db.SaveChanges();
+                Freelancer freelancer = db.Freelancers.Find(project.FreelancerID);
+                freelancer.ProjectsList.Add(project);
 
-            ViewBag.Message = "Project is added to Project List";
+                db.Freelancers.AddOrUpdate(freelancer);
+                db.Projects.AddOrUpdate(project);
 
+                db.SaveChanges();
+                return RedirectToAction("Overview", "Overview");
+            }
             return Redirect("Overview");
 
         }

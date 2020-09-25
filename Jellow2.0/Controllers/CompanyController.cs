@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -16,10 +17,38 @@ namespace Jellow2._0.Controllers
         private DbModelContainer db = new DbModelContainer();
 
         // GET: Company
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string searching)
         {
+            ViewBag.IDSortParam = String.IsNullOrEmpty(sortOrder) ? "companyID_asc" : "";
+            ViewBag.ProjectPostedParam = sortOrder == "Projectposted";
+            ViewBag.JobPostedParam = sortOrder == "Jobposted";
+            ViewBag.NameParam = sortOrder == "NameOrder" ? "Name_Desc" : "NameOrder";
+
+            var companies = from c in db.Companies select c;
+            switch (sortOrder)
+            {
+                case "Jobposted":
+                    companies = companies.OrderByDescending(c => c.HasJobsPosted);
+                    break;
+                case "Projectposted":
+                    companies = companies.OrderByDescending(c => c.HasProjectsPosted);
+                    break;
+                case "NameOrder":
+                    companies = companies.OrderBy(c => c.Name);
+                    break;
+                case "Name_Desc":
+                    companies = companies.OrderByDescending(c => c.Name);
+                    break;
+                case "companyID_asc":
+                    companies = companies.OrderBy(c => c.CompanyID);
+                    break;
+                default:
+                    companies = companies.OrderBy(c => c.CompanyID);
+                    break;
+            }
             CheckIfCompanyHasJobsOrProjects();
-            return View(db.Companies.ToList());
+            return View(companies.ToList());
+            //return View(db.Companies.ToList());
         }
 
         // GET: Company/Details/5
