@@ -30,11 +30,11 @@
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                    <div class="checkbox">
+                    <div class="checkbox" hidden>
                         <input type="hidden" name="HasProjectsPosted" value="false" />
                     </div>
 
-                    <div class="checkbox">
+                    <div class="checkbox" hidden>
                         <input type="hidden" name="HasJobsPosted" value="false" />
                     </div>
                 </div>

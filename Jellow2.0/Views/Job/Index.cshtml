@@ -66,9 +66,9 @@
                 @Html.DisplayFor(modelItem => item.Freelancer.Name)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.JobID }, null, new { @class = "basic-hyperlink" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.JobID }, null, new { @class = "basic-hyperlink" }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.JobID }, null, new { @class = "basic-hyperlink" })
+                @Html.ActionLink("Edit", "Edit", new { id = item.JobID }, new { @class = "basic-hyperlink" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.JobID }, new { @class = "basic-hyperlink" }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.JobID }, new { @class = "basic-hyperlink" })
             </td>
         </tr>
     }

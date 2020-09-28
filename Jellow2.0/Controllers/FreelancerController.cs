@@ -15,10 +15,41 @@ namespace Jellow2._0.Controllers
         private DbModelContainer db = new DbModelContainer();
 
         // GET: Freelancer
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
+
+            ViewBag.IDParam = String.IsNullOrEmpty(sortOrder) ? "freelancerID_desc" : "";
+            ViewBag.NameParam = sortOrder == "NameAsc" ? "NameDesc" : "NameAsc";
+            ViewBag.IsEmployedParam = sortOrder == "IsEmployed" ? "IsNotEmployed" : "IsEmployed";
+            ViewBag.SkillParam = sortOrder == "SkillAsc" ? "SkillDesc" : "SkillAsc";
+
+            var freelancers = from f in db.Freelancers select f;
+            switch (sortOrder)
+            {
+                case "freelancerID_desc":
+                    freelancers = freelancers.OrderByDescending(f => f.FreelancerID);
+                    break;
+                case "NameAsc":
+                    freelancers = freelancers.OrderBy(f => f.Name);
+                    break;
+                case "NameDesc":
+                    freelancers = freelancers.OrderByDescending(f => f.Name);
+                    break;
+                case "IsEmployed":
+                    freelancers = freelancers.OrderByDescending(f => f.IsEmployed);
+                    break;
+                case "SkillAsc":
+                    freelancers = freelancers.OrderBy(f => f.Skill).ThenBy(f => f.Experience);
+                    break;
+                case "SkillDesc":
+                    freelancers = freelancers.OrderByDescending(f => f.Skill).ThenBy(f => f.Experience);
+                    break;
+                default:
+                    freelancers = freelancers.OrderBy(f => f.FreelancerID);
+                    break;
+            }
             CheckIfCompanyHasJobsOrProjects();
-            return View(db.Freelancers.ToList());
+            return View(freelancers.ToList());
         }
 
         // GET: Freelancer/Details/5

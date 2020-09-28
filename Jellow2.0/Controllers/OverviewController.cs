@@ -15,9 +15,6 @@ namespace Jellow2._0.Controllers
     {
         private DbModelContainer db = new DbModelContainer();
 
-        private int? _projectID;
-        private int? _freelancerID;
-
         // GET: Overview
         public ActionResult Overview()
         {

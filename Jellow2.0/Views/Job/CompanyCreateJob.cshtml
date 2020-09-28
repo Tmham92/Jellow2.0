@@ -1,5 +1,12 @@
 ﻿@model Jellow2._0.Database.Job
 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="~/Content/general-styling.css" />
+
 @Scripts.Render("~/bundles/jquery")
 @Scripts.Render("~/bundles/jqueryval")
 
@@ -15,7 +22,6 @@
 
         <div class="form-horizontal">
             <h4>Job</h4>
-            <h5>@ViewBag.CompanyID</h5>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -65,7 +71,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group" hidden>
                 @Html.LabelFor(model => model.FreelancerID, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <input class="form-control text-box single-line" type="text" id="FreelancerID" value="null" placeholder="n/a" readonly />

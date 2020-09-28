@@ -19,15 +19,15 @@ namespace Jellow2._0.Controllers
         // GET: Consumer
         public ActionResult Index(string sortOrder)
         {
-            ViewBag.IDSortParam = String.IsNullOrEmpty(sortOrder) ? "consumerID_asc" : "";
-            ViewBag.ProjectPostedParam = sortOrder == "Projectposted";
+            ViewBag.IDSortParam = String.IsNullOrEmpty(sortOrder) ? "consumerID_desc" : "";
+            ViewBag.ProjectPostedParam = sortOrder == "Projectposted" ? "NoProject" : "Projectposted";
             ViewBag.NameParam = sortOrder == "NameOrder" ? "Name_Desc" : "NameOrder";
 
             var consumers = from c in db.Consumers select c;
             switch (sortOrder)
             {
-                case "consumerID_asc":
-                    consumers = consumers.OrderBy(c => c.ConsumerID);
+                case "Projectposted":
+                    consumers = consumers.OrderByDescending(c => c.HasProjectPosted);
                     break;
                 case "NameOrder":
                     consumers = consumers.OrderBy(c => c.Name);
@@ -35,12 +35,15 @@ namespace Jellow2._0.Controllers
                 case "Name_Desc":
                     consumers = consumers.OrderByDescending(c => c.Name);
                     break;
+                case "consumerID_desc":
+                    consumers = consumers.OrderByDescending(c => c.ConsumerID);
+                    break;
                 default:
                     consumers = consumers.OrderBy(c => c.ConsumerID);
                     break;
             }
             CheckIfConsumerHasProjects();
-            return View(db.Consumers.ToList());
+            return View(consumers.ToList());
         }
 
 // GET: Consumer/Details/5

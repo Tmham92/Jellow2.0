@@ -36,34 +36,39 @@
             </tr>
             @foreach (var item in Model.allJobs)
             {
-                <tr>
-                    <td>
-                        Job
-                    </td>
-                    <td>
-                        @item.Name
-                    </td>
-                    <td>
-                        @item.Description
-                    </td>
-                    <td>
-                        @item.Salary
-                    </td>
-                    <td>
-                        @if (item.FreelancerID == null)
-                        {
-                            <label>Available</label>
-                        }
-                        else
-                        {
-                            <label>Not Available</label>
-                        }
+        <tr>
+            <td>
+                Job
+            </td>
+            <td>
+                @item.Name
+            </td>
+            <td>
+                @item.Description
+            </td>
+            <td>
+                @item.Salary
+            </td>
+            <td>
+                @if (item.FreelancerID == null)
+                {
+                    @Html.ActionLink("Available", "AcceptJob", "Overview", new { JobID = item.JobID }, new { @class = "bordered-outset" })
+                }
+                else
+                {
+                    <label>Not Available</label>
+                }
+            </td>
 
-                    </td>
-                    <td>
-                        @item.StartDate
-                    </td>
-                </tr>
+            <td>
+                @item.StartDate
+            </td>
+            <td>
+                @if (item.FreelancerID == null)
+                {
+                }
+            </td>
+        </tr>
             }
         </table>
     </div>
